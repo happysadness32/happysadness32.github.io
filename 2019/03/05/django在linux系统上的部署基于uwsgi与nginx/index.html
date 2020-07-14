@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="django，python，nginx," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. nginx安装1sudo apt-get install nginx  启动、停止和重启123sudo &#x2F;etc&#x2F;init.d&#x2F;nginx startsudo &#x2F;etc&#x2F;init.d&#x2F;nginx stopsudo &#x2F;etc&#x2F;init.d&#x2F;nginx restart  或者 123sudo service nginx startsudo service nginx stopsudo servi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django在linux系统上的部署基于uwsgi与nginx">
+<meta property="og:url" content="https://happysadness32.github.io/2019/03/05/django%E5%9C%A8linux%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2%E5%9F%BA%E4%BA%8Euwsgi%E4%B8%8Enginx/index.html">
+<meta property="og:site_name" content="Fan&#39;s blogs">
+<meta property="og:description" content="1. nginx安装1sudo apt-get install nginx  启动、停止和重启123sudo &#x2F;etc&#x2F;init.d&#x2F;nginx startsudo &#x2F;etc&#x2F;init.d&#x2F;nginx stopsudo &#x2F;etc&#x2F;init.d&#x2F;nginx restart  或者 123sudo service nginx startsudo service nginx stopsudo servi">
+<meta property="article:published_time" content="2019-03-05T15:49:49.000Z">
+<meta property="article:modified_time" content="2020-07-14T10:43:32.006Z">
+<meta property="article:author" content="happysadness32">
+<meta property="article:tag" content="django，python，nginx">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://happysadness32.github.io/2019/03/05/django在linux系统上的部署基于uwsgi与nginx/"/>
+
+
+
+
+
+  <title>django在linux系统上的部署基于uwsgi与nginx | Fan's blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fan's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://happysadness32.github.io/2019/03/05/django%E5%9C%A8linux%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2%E5%9F%BA%E4%BA%8Euwsgi%E4%B8%8Enginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="happysadness32">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fan's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">django在linux系统上的部署基于uwsgi与nginx</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-05T23:49:49+08:00">
+                2019-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-nginx"><a href="#1-nginx" class="headerlink" title="1. nginx"></a>1. nginx</h1><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动、停止和重启"><a href="#启动、停止和重启" class="headerlink" title="启动、停止和重启"></a>启动、停止和重启</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/nginx start</span><br><span class="line">sudo /etc/init.d/nginx stop</span><br><span class="line">sudo /etc/init.d/nginx restart</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx start</span><br><span class="line">sudo service nginx stop</span><br><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-uWSGI安装"><a href="#2-uWSGI安装" class="headerlink" title="2. uWSGI安装"></a>2. uWSGI安装</h1><p>用python的pip安装最简单：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install python-dev #不安装这个，下面的安装可能会失败</span><br><span class="line">pip install uwsg</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-基于uWSGI和nginx部署Django"><a href="#3-基于uWSGI和nginx部署Django" class="headerlink" title="3. 基于uWSGI和nginx部署Django"></a>3. 基于uWSGI和nginx部署Django</h1><h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; the web server(nginx) &lt;-&gt; the socket &lt;-&gt; uwsgi &lt;-&gt; Django</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-基本测试"><a href="#2-基本测试" class="headerlink" title="2.基本测试"></a>2.基本测试</h2><h3 id="测试uWSGI是否正常"><a href="#测试uWSGI是否正常" class="headerlink" title="测试uWSGI是否正常"></a>测试uWSGI是否正常</h3><p>在django项目的根目录下创建test.py文件，添加源码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(env, start_response)</span>:</span></span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>,<span class="string">'text/html'</span>)])</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">"Hello World"</span>] <span class="comment"># python2</span></span><br><span class="line">    <span class="comment">#return [b"Hello World"] # python3</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，Run uWSGI:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --http :8000 --wsgi-file test.py</span><br></pre></td></tr></table></figure>
+
+<p>参数含义:</p>
+<ul>
+<li><code>http :8000</code>: 使用http协议，8000端口</li>
+<li><code>wsgi-file</code> test.py: 加载指定文件 test.py</li>
+</ul>
+<p>打开下面url，浏览器上应该显示<code>hello world</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com:8000</span><br></pre></td></tr></table></figure>
+
+<p>如果显示正确，说明下面3个环节是通畅的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; uWSGI &lt;-&gt; Python</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试Django项目是否正常"><a href="#测试Django项目是否正常" class="headerlink" title="测试Django项目是否正常"></a>测试Django项目是否正常</h3><p>首先确保project本身是正常的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<p>如果没问题，使用uWSGI把project拉起来：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --http :8000 --module mysite.wsgi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>module mysite.wsgi</code>: 加载wsgi module</li>
+</ul>
+<p>如果project能够正常被拉起，说明以下环节是通的：</p>
+<p>​    the web client &lt;-&gt; uWSGI &lt;-&gt; Django</p>
+<h2 id="3-配置nginx"><a href="#3-配置nginx" class="headerlink" title="3.配置nginx"></a>3.配置nginx</h2><p>安装nginx完成后，如果能正常打开<code>http://hostname</code>，说明下面环节是通畅的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; the web server</span><br></pre></td></tr></table></figure>
+
+<h3 id="增加nginx配置"><a href="#增加nginx配置" class="headerlink" title="增加nginx配置"></a>增加nginx配置</h3><ul>
+<li><p>将<code>uwsgi_params</code>文件拷贝到项目文件夹下。<code>uwsgi_params</code>文件在<code>/etc/nginx/</code>目录下，也可以从<a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params" target="_blank" rel="noopener">这个页面</a>下载</p>
+</li>
+<li><p>在项目文件夹下创建文件<code>mysite_nginx.conf</code>,填入并修改下面内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mysite_nginx.conf</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> the upstream component nginx needs to connect to</span></span><br><span class="line">upstream django &#123;</span><br><span class="line">    # server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span><br><span class="line">    server 127.0.0.1:8001; # for a web port socket (we'll use this first)</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> configuration of the server</span></span><br><span class="line">server &#123;</span><br><span class="line">    # the port your site will be served on</span><br><span class="line">    listen      8000;</span><br><span class="line">    # the domain name it will serve for</span><br><span class="line">    server_name .example.com; # substitute your machine's IP address or FQDN</span><br><span class="line">    charset     utf-8;</span><br><span class="line"></span><br><span class="line">    # max upload size</span><br><span class="line">    client_max_body_size 75M;   # adjust to taste</span><br><span class="line"></span><br><span class="line">    # Django media</span><br><span class="line">    location /media  &#123;</span><br><span class="line">        alias /path/to/your/mysite/media;  # your Django project's media files - amend as required</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /static &#123;</span><br><span class="line">        alias /path/to/your/mysite/static; # your Django project's static files - amend as required</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # Finally, send all non-media requests to the Django server.</span><br><span class="line">    location / &#123;</span><br><span class="line">        uwsgi_pass  django;</span><br><span class="line">        include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>这个configuration文件告诉nginx从文件系统中拉起media和static文件作为服务，同时相应django的request在<code>/etc/nginx/sites-enabled</code>目录下创建本文件的连接，使nginx能够使用它：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s ~/path/to/your/mysite/mysite_nginx.conf /etc/nginx/sites-enabled/</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署static文件"><a href="#部署static文件" class="headerlink" title="部署static文件"></a>部署static文件</h3><p>在django的setting文件中，添加下面一行内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STATIC_ROOT = os.path.join(BASE_DIR, <span class="string">"static/"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然后运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py collectstatic</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试nginx"><a href="#测试nginx" class="headerlink" title="测试nginx"></a>测试nginx</h3><p>首先重启nginx服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/nginx restart</span><br></pre></td></tr></table></figure>
+
+<p>然后检查media文件是否已经正常拉起：<br>在目录<code>/path/to/your/project/project/media directory</code>下添加文件<code>meida.png</code>，然后访问<a href="http://example.com:8000/media/media.png" target="_blank" rel="noopener">http://example.com:8000/media/media.png</a> ，成功后进行下一步测试。</p>
+<h2 id="4-nginx-and-uWSGI-and-test-py"><a href="#4-nginx-and-uWSGI-and-test-py" class="headerlink" title="4.nginx and uWSGI and test.py"></a>4.nginx and uWSGI and test.py</h2><p>执行下面代码测试能否让nginx在页面上显示<code>hello, world</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket :8001 --wsgi-file test.py</span><br></pre></td></tr></table></figure>
+
+<p>访问<a href="http://example.com:8000" target="_blank" rel="noopener">http://example.com:8000</a> ,如果显示<code>hello world</code>，则下面环节是否通畅:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uWSGI &lt;-&gt; Python</span><br></pre></td></tr></table></figure>
+
+<h3 id="用UNIX-socket取代TCP-port"><a href="#用UNIX-socket取代TCP-port" class="headerlink" title="用UNIX socket取代TCP port"></a>用UNIX socket取代TCP port</h3><p>对<code>mysite_nginx.conf</code>做如下修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span><br><span class="line"><span class="meta">#</span><span class="bash"> server 127.0.0.1:8001; <span class="comment"># for a web port socket (we'll use this first)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>重启nginx，并在此运行<code>uWSGI</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --wsgi-file test.py</span><br></pre></td></tr></table></figure>
+
+<p>打开 <a href="http://example.com:8000/" target="_blank" rel="noopener">http://example.com:8000/</a> ，看看是否成功</p>
+<h4 id="如果没有成功"><a href="#如果没有成功" class="headerlink" title="如果没有成功:"></a>如果没有成功:</h4><p>检查 nginx error log(/var/log/nginx/error.log)。如果错误如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">connect() to unix:///path/to/your/mysite/mysite.sock failed (13: Permission</span><br><span class="line">denied)</span><br></pre></td></tr></table></figure>
+
+<p>添加socket权限再次运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --wsgi-file test.py --chmod-socket=666 # (very permissive)</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --wsgi-file test.py --chmod-socket=664 # (more sensible)</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Running-the-Django-application-with-uswgi-and-nginx"><a href="#5-Running-the-Django-application-with-uswgi-and-nginx" class="headerlink" title="5.Running the Django application with uswgi and nginx"></a>5.Running the Django application with uswgi and nginx</h2><p>如果上面一切都显示正常，则下面命令可以拉起django application</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --module mysite.wsgi --chmod-socket=664</span><br></pre></td></tr></table></figure>
+
+<h3 id="Configuring-uWSGI-to-run-with-a-ini-file"><a href="#Configuring-uWSGI-to-run-with-a-ini-file" class="headerlink" title="Configuring uWSGI to run with a .ini file"></a>Configuring uWSGI to run with a .ini file</h3><p>每次都运行上面命令拉起django application实在麻烦，使用.ini文件能简化工作，方法如下：</p>
+<p>在application目录下创建文件<code>mysite_uwsgi.ini</code>，填入并修改下面内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mysite_uwsgi.ini file</span></span><br><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Django-related settings</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the base directory (full path)</span></span><br><span class="line">chdir           = /path/to/your/project</span><br><span class="line"><span class="meta">#</span><span class="bash"> Django<span class="string">'s wsgi file</span></span></span><br><span class="line">module          = project.wsgi</span><br><span class="line"><span class="meta">#</span><span class="bash"> the virtualenv (full path)</span></span><br><span class="line">home            = /path/to/virtualenv</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> process-related settings</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> master</span></span><br><span class="line">master          = true</span><br><span class="line"><span class="meta">#</span><span class="bash"> maximum number of worker processes</span></span><br><span class="line">processes       = 10</span><br><span class="line"><span class="meta">#</span><span class="bash"> the socket (use the full path to be safe</span></span><br><span class="line">socket          = /path/to/your/project/mysite.sock</span><br><span class="line"><span class="meta">#</span><span class="bash"> ... with appropriate permissions - may be needed</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod-socket    = 664</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> clear environment on <span class="built_in">exit</span></span></span><br><span class="line">vacuum          = true</span><br></pre></td></tr></table></figure>
+
+<p>现在，只要执行以下命令，就能够拉起django application：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --ini mysite_uwsgi.ini # the --ini option is used to specify a file</span><br></pre></td></tr></table></figure>
+
+<h3 id="Make-uWSGI-startup-when-the-system-boots"><a href="#Make-uWSGI-startup-when-the-system-boots" class="headerlink" title="Make uWSGI startup when the system boots"></a>Make uWSGI startup when the system boots</h3><p>编辑文件<code>/etc/rc.local</code>, 添加下面内容到这行代码之前<code>exit 0</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/uwsgi --socket /path/to/mysite.sock --module /path/to/mysite.wsgi --chmod-socket=666</span><br></pre></td></tr></table></figure>
+
+<h3 id="uWSGI的更多配置"><a href="#uWSGI的更多配置" class="headerlink" title="uWSGI的更多配置"></a>uWSGI的更多配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">env = DJANGO_SETTINGS_MODULE=mysite.settings # set an environment variable</span><br><span class="line">pidfile = /tmp/project-master.pid # create a pidfile</span><br><span class="line">harakiri = 20 # respawn processes taking more than 20 seconds</span><br><span class="line">limit-as = 128 # limit the project to 128 MB</span><br><span class="line">max-requests = 5000 # respawn processes after serving 5000 requests</span><br><span class="line">daemonize = /var/log/uwsgi/yourproject.log # background the process &amp; log</span><br></pre></td></tr></table></figure>
+
+<pre><code>文／Gevin（简书作者）</code></pre><p>原文链接：<a href="http://www.jianshu.com/p/e6ff4a28ab5a" target="_blank" rel="noopener">http://www.jianshu.com/p/e6ff4a28ab5a</a><br>著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django%EF%BC%8Cpython%EF%BC%8Cnginx/" rel="tag"># django，python，nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/centOS7%E5%AE%89%E8%A3%85python3%E4%B8%8Epython2%E5%85%B1%E5%AD%98/" rel="next" title="centOS7安装python3.6与python2.7共存">
+                <i class="fa fa-chevron-left"></i> centOS7安装python3.6与python2.7共存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/06/tkinter%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" rel="prev" title="tkinter的基本用法">
+                tkinter的基本用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">happysadness32</p>
+              <p class="site-description motion-element" itemprop="description">喜欢python，喜欢爬虫</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-nginx"><span class="nav-number">1.</span> <span class="nav-text">1. nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.0.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动、停止和重启"><span class="nav-number">1.0.2.</span> <span class="nav-text">启动、停止和重启</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-uWSGI安装"><span class="nav-number">2.</span> <span class="nav-text">2. uWSGI安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-基于uWSGI和nginx部署Django"><span class="nav-number">3.</span> <span class="nav-text">3. 基于uWSGI和nginx部署Django</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-原理"><span class="nav-number">3.1.</span> <span class="nav-text">1.原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基本测试"><span class="nav-number">3.2.</span> <span class="nav-text">2.基本测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试uWSGI是否正常"><span class="nav-number">3.2.1.</span> <span class="nav-text">测试uWSGI是否正常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试Django项目是否正常"><span class="nav-number">3.2.2.</span> <span class="nav-text">测试Django项目是否正常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-配置nginx"><span class="nav-number">3.3.</span> <span class="nav-text">3.配置nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加nginx配置"><span class="nav-number">3.3.1.</span> <span class="nav-text">增加nginx配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署static文件"><span class="nav-number">3.3.2.</span> <span class="nav-text">部署static文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试nginx"><span class="nav-number">3.3.3.</span> <span class="nav-text">测试nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-nginx-and-uWSGI-and-test-py"><span class="nav-number">3.4.</span> <span class="nav-text">4.nginx and uWSGI and test.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用UNIX-socket取代TCP-port"><span class="nav-number">3.4.1.</span> <span class="nav-text">用UNIX socket取代TCP port</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如果没有成功"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">如果没有成功:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Running-the-Django-application-with-uswgi-and-nginx"><span class="nav-number">3.5.</span> <span class="nav-text">5.Running the Django application with uswgi and nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring-uWSGI-to-run-with-a-ini-file"><span class="nav-number">3.5.1.</span> <span class="nav-text">Configuring uWSGI to run with a .ini file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Make-uWSGI-startup-when-the-system-boots"><span class="nav-number">3.5.2.</span> <span class="nav-text">Make uWSGI startup when the system boots</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uWSGI的更多配置"><span class="nav-number">3.5.3.</span> <span class="nav-text">uWSGI的更多配置</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">happysadness32</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
