@@ -307,15 +307,10 @@
       
         
           
-          1234567891011121314151617181920212223242526272829303132333435363738mport tkinterwindow = tkinter.Tk()window.attributes('-alpha', 0.8,)#透明度window.title
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/06/tkinter%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">mport tkinter</span><br><span class="line"></span><br><span class="line">window = tkinter.Tk()</span><br><span class="line">window.attributes(<span class="string">'-alpha'</span>, <span class="number">0.8</span>,)<span class="comment">#透明度</span></span><br><span class="line">window.title(<span class="string">"工具集合"</span>)</span><br><span class="line">window.iconbitmap(<span class="string">"C://ico.ico"</span>)</span><br><span class="line">window.wm_maxsize(<span class="number">600</span>,<span class="number">400</span>)</span><br><span class="line">window.wm_minsize(<span class="number">600</span>,<span class="number">400</span>)</span><br><span class="line">tkinter.Frame(window, height=<span class="number">600</span>, width=<span class="number">400</span>, bg=<span class="string">"#363636"</span>).pack(expand=<span class="string">"YES"</span>,fill=<span class="string">"both"</span>)<span class="comment">#112b45</span></span><br><span class="line"><span class="comment">#面板的背景色设置</span></span><br><span class="line"><span class="comment">#  font=('楷体',12,'bold'),字体设置 fg='#FFF8DC' 字体颜色设置</span></span><br><span class="line">label = tkinter.Label(window, text=<span class="string">"订单号:"</span>, font=(<span class="string">'楷体'</span>,<span class="number">12</span>,<span class="string">'bold'</span>),bg=<span class="string">'#363636'</span>,fg=<span class="string">'#FFF8DC'</span>,width=<span class="number">8</span>, height=<span class="number">1</span>)</span><br><span class="line">label.pack(side=<span class="string">"left"</span>)</span><br><span class="line">label.place(x=<span class="number">50</span>, y=<span class="number">301</span>, anchor=<span class="string">'nw'</span>)</span><br><span class="line">ent = tkinter.Entry(window, bg=<span class="string">"#363636"</span>,fg=<span class="string">'#FFF8DC'</span>,font=(<span class="string">'楷体'</span>,<span class="number">12</span>,<span class="string">'bold'</span>), show=<span class="string">""</span>, width=<span class="number">30</span>)</span><br><span class="line">ent.pack()</span><br><span class="line">ent.place(x=<span class="number">128</span>, y=<span class="number">302</span>, anchor=<span class="string">"nw"</span>)<span class="comment">#位置，anchor为起点，n表示北</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makeTable</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># print(ent.get())</span></span><br><span class="line">    <span class="comment"># txt.delete(0.0, tkinter.END)</span></span><br><span class="line">    <span class="comment"># txt.insert('end', ent.get())</span></span><br><span class="line">    <span class="comment"># ent.delete(0, 'end')</span></span><br><span class="line">    <span class="comment"># s =txt.get(0.0, 'end').split('\n')</span></span><br><span class="line">    <span class="comment"># s.pop(-1)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">saveOrderid</span><span class="params">()</span>:</span></span><br><span class="line">    s = txt.get(<span class="number">0.0</span>, <span class="string">'end'</span>)</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'订单号.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(s)</span><br><span class="line"></span><br><span class="line">btn = tkinter.Button(window, text=<span class="string">"查询"</span>, bg=<span class="string">'#363636'</span>,fg=<span class="string">'#FFF8DC'</span>,font=(<span class="string">'楷体'</span>,<span class="number">12</span>,<span class="string">'bold'</span>),command=getname,width=<span class="number">12</span> )</span><br><span class="line">btn.pack(side=<span class="string">'left'</span>)</span><br><span class="line">btn.place(x=<span class="number">110</span>, y=<span class="number">350</span>, anchor=<span class="string">'nw'</span>)</span><br><span class="line">btn1 = tkinter.Button(window, text=<span class="string">"做表"</span>, bg=<span class="string">'#363636'</span>,fg=<span class="string">'#FFF8DC'</span>,font=(<span class="string">'楷体'</span>,<span class="number">12</span>,<span class="string">'bold'</span>),command=getname,width=<span class="number">12</span> )</span><br><span class="line">btn1.pack(side=<span class="string">'left'</span>)</span><br><span class="line">btn1.place(x=<span class="number">250</span>, y=<span class="number">350</span>, anchor=<span class="string">'nw'</span>)</span><br><span class="line">txt = tkinter.Text(window, bg=<span class="string">"#363636"</span>,fg=<span class="string">'#FFF8DC'</span>,font=(<span class="string">'楷体'</span>,<span class="number">12</span>,<span class="string">'bold'</span>),width=<span class="number">41</span>, height=<span class="number">5</span>)</span><br><span class="line">txt.place(x=<span class="number">50</span>, y=<span class="number">200</span>, anchor=<span class="string">'nw'</span>)</span><br><span class="line">window.mainloop()</span><br></pre></td></tr></table></figure>
+
+
+          
         
       
     </div>
@@ -433,20 +428,110 @@
       
         
           
-          1. nginx安装1sudo apt-get install nginx
+            <h1 id="1-nginx"><a href="#1-nginx" class="headerlink" title="1. nginx"></a>1. nginx</h1><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
 
-启动、停止和重启123sudo /etc/init.d/nginx startsudo /etc/init.d/nginx stopsudo /etc/init.d/nginx restart
+<h3 id="启动、停止和重启"><a href="#启动、停止和重启" class="headerlink" title="启动、停止和重启"></a>启动、停止和重启</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/nginx start</span><br><span class="line">sudo /etc/init.d/nginx stop</span><br><span class="line">sudo /etc/init.d/nginx restart</span><br></pre></td></tr></table></figure>
 
-或者
-123sudo se
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/05/django%E5%9C%A8linux%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2%E5%9F%BA%E4%BA%8Euwsgi%E4%B8%8Enginx/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<p>或者</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx start</span><br><span class="line">sudo service nginx stop</span><br><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-uWSGI安装"><a href="#2-uWSGI安装" class="headerlink" title="2. uWSGI安装"></a>2. uWSGI安装</h1><p>用python的pip安装最简单：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install python-dev #不安装这个，下面的安装可能会失败</span><br><span class="line">pip install uwsg</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-基于uWSGI和nginx部署Django"><a href="#3-基于uWSGI和nginx部署Django" class="headerlink" title="3. 基于uWSGI和nginx部署Django"></a>3. 基于uWSGI和nginx部署Django</h1><h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a>1.原理</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; the web server(nginx) &lt;-&gt; the socket &lt;-&gt; uwsgi &lt;-&gt; Django</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-基本测试"><a href="#2-基本测试" class="headerlink" title="2.基本测试"></a>2.基本测试</h2><h3 id="测试uWSGI是否正常"><a href="#测试uWSGI是否正常" class="headerlink" title="测试uWSGI是否正常"></a>测试uWSGI是否正常</h3><p>在django项目的根目录下创建test.py文件，添加源码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(env, start_response)</span>:</span></span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>,<span class="string">'text/html'</span>)])</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">"Hello World"</span>] <span class="comment"># python2</span></span><br><span class="line">    <span class="comment">#return [b"Hello World"] # python3</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，Run uWSGI:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --http :8000 --wsgi-file test.py</span><br></pre></td></tr></table></figure>
+
+<p>参数含义:</p>
+<ul>
+<li><code>http :8000</code>: 使用http协议，8000端口</li>
+<li><code>wsgi-file</code> test.py: 加载指定文件 test.py</li>
+</ul>
+<p>打开下面url，浏览器上应该显示<code>hello world</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com:8000</span><br></pre></td></tr></table></figure>
+
+<p>如果显示正确，说明下面3个环节是通畅的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; uWSGI &lt;-&gt; Python</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试Django项目是否正常"><a href="#测试Django项目是否正常" class="headerlink" title="测试Django项目是否正常"></a>测试Django项目是否正常</h3><p>首先确保project本身是正常的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<p>如果没问题，使用uWSGI把project拉起来：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --http :8000 --module mysite.wsgi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>module mysite.wsgi</code>: 加载wsgi module</li>
+</ul>
+<p>如果project能够正常被拉起，说明以下环节是通的：</p>
+<p>​    the web client &lt;-&gt; uWSGI &lt;-&gt; Django</p>
+<h2 id="3-配置nginx"><a href="#3-配置nginx" class="headerlink" title="3.配置nginx"></a>3.配置nginx</h2><p>安装nginx完成后，如果能正常打开<code>http://hostname</code>，说明下面环节是通畅的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; the web server</span><br></pre></td></tr></table></figure>
+
+<h3 id="增加nginx配置"><a href="#增加nginx配置" class="headerlink" title="增加nginx配置"></a>增加nginx配置</h3><ul>
+<li><p>将<code>uwsgi_params</code>文件拷贝到项目文件夹下。<code>uwsgi_params</code>文件在<code>/etc/nginx/</code>目录下，也可以从<a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params" target="_blank" rel="noopener">这个页面</a>下载</p>
+</li>
+<li><p>在项目文件夹下创建文件<code>mysite_nginx.conf</code>,填入并修改下面内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mysite_nginx.conf</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> the upstream component nginx needs to connect to</span></span><br><span class="line">upstream django &#123;</span><br><span class="line">    # server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span><br><span class="line">    server 127.0.0.1:8001; # for a web port socket (we'll use this first)</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> configuration of the server</span></span><br><span class="line">server &#123;</span><br><span class="line">    # the port your site will be served on</span><br><span class="line">    listen      8000;</span><br><span class="line">    # the domain name it will serve for</span><br><span class="line">    server_name .example.com; # substitute your machine's IP address or FQDN</span><br><span class="line">    charset     utf-8;</span><br><span class="line"></span><br><span class="line">    # max upload size</span><br><span class="line">    client_max_body_size 75M;   # adjust to taste</span><br><span class="line"></span><br><span class="line">    # Django media</span><br><span class="line">    location /media  &#123;</span><br><span class="line">        alias /path/to/your/mysite/media;  # your Django project's media files - amend as required</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /static &#123;</span><br><span class="line">        alias /path/to/your/mysite/static; # your Django project's static files - amend as required</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # Finally, send all non-media requests to the Django server.</span><br><span class="line">    location / &#123;</span><br><span class="line">        uwsgi_pass  django;</span><br><span class="line">        include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>这个configuration文件告诉nginx从文件系统中拉起media和static文件作为服务，同时相应django的request在<code>/etc/nginx/sites-enabled</code>目录下创建本文件的连接，使nginx能够使用它：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s ~/path/to/your/mysite/mysite_nginx.conf /etc/nginx/sites-enabled/</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署static文件"><a href="#部署static文件" class="headerlink" title="部署static文件"></a>部署static文件</h3><p>在django的setting文件中，添加下面一行内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STATIC_ROOT = os.path.join(BASE_DIR, <span class="string">"static/"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然后运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py collectstatic</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试nginx"><a href="#测试nginx" class="headerlink" title="测试nginx"></a>测试nginx</h3><p>首先重启nginx服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/nginx restart</span><br></pre></td></tr></table></figure>
+
+<p>然后检查media文件是否已经正常拉起：<br>在目录<code>/path/to/your/project/project/media directory</code>下添加文件<code>meida.png</code>，然后访问<a href="http://example.com:8000/media/media.png" target="_blank" rel="noopener">http://example.com:8000/media/media.png</a> ，成功后进行下一步测试。</p>
+<h2 id="4-nginx-and-uWSGI-and-test-py"><a href="#4-nginx-and-uWSGI-and-test-py" class="headerlink" title="4.nginx and uWSGI and test.py"></a>4.nginx and uWSGI and test.py</h2><p>执行下面代码测试能否让nginx在页面上显示<code>hello, world</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket :8001 --wsgi-file test.py</span><br></pre></td></tr></table></figure>
+
+<p>访问<a href="http://example.com:8000" target="_blank" rel="noopener">http://example.com:8000</a> ,如果显示<code>hello world</code>，则下面环节是否通畅:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uWSGI &lt;-&gt; Python</span><br></pre></td></tr></table></figure>
+
+<h3 id="用UNIX-socket取代TCP-port"><a href="#用UNIX-socket取代TCP-port" class="headerlink" title="用UNIX socket取代TCP port"></a>用UNIX socket取代TCP port</h3><p>对<code>mysite_nginx.conf</code>做如下修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span><br><span class="line"><span class="meta">#</span><span class="bash"> server 127.0.0.1:8001; <span class="comment"># for a web port socket (we'll use this first)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>重启nginx，并在此运行<code>uWSGI</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --wsgi-file test.py</span><br></pre></td></tr></table></figure>
+
+<p>打开 <a href="http://example.com:8000/" target="_blank" rel="noopener">http://example.com:8000/</a> ，看看是否成功</p>
+<h4 id="如果没有成功"><a href="#如果没有成功" class="headerlink" title="如果没有成功:"></a>如果没有成功:</h4><p>检查 nginx error log(/var/log/nginx/error.log)。如果错误如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">connect() to unix:///path/to/your/mysite/mysite.sock failed (13: Permission</span><br><span class="line">denied)</span><br></pre></td></tr></table></figure>
+
+<p>添加socket权限再次运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --wsgi-file test.py --chmod-socket=666 # (very permissive)</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --wsgi-file test.py --chmod-socket=664 # (more sensible)</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Running-the-Django-application-with-uswgi-and-nginx"><a href="#5-Running-the-Django-application-with-uswgi-and-nginx" class="headerlink" title="5.Running the Django application with uswgi and nginx"></a>5.Running the Django application with uswgi and nginx</h2><p>如果上面一切都显示正常，则下面命令可以拉起django application</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket mysite.sock --module mysite.wsgi --chmod-socket=664</span><br></pre></td></tr></table></figure>
+
+<h3 id="Configuring-uWSGI-to-run-with-a-ini-file"><a href="#Configuring-uWSGI-to-run-with-a-ini-file" class="headerlink" title="Configuring uWSGI to run with a .ini file"></a>Configuring uWSGI to run with a .ini file</h3><p>每次都运行上面命令拉起django application实在麻烦，使用.ini文件能简化工作，方法如下：</p>
+<p>在application目录下创建文件<code>mysite_uwsgi.ini</code>，填入并修改下面内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mysite_uwsgi.ini file</span></span><br><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Django-related settings</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the base directory (full path)</span></span><br><span class="line">chdir           = /path/to/your/project</span><br><span class="line"><span class="meta">#</span><span class="bash"> Django<span class="string">'s wsgi file</span></span></span><br><span class="line">module          = project.wsgi</span><br><span class="line"><span class="meta">#</span><span class="bash"> the virtualenv (full path)</span></span><br><span class="line">home            = /path/to/virtualenv</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> process-related settings</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> master</span></span><br><span class="line">master          = true</span><br><span class="line"><span class="meta">#</span><span class="bash"> maximum number of worker processes</span></span><br><span class="line">processes       = 10</span><br><span class="line"><span class="meta">#</span><span class="bash"> the socket (use the full path to be safe</span></span><br><span class="line">socket          = /path/to/your/project/mysite.sock</span><br><span class="line"><span class="meta">#</span><span class="bash"> ... with appropriate permissions - may be needed</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod-socket    = 664</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> clear environment on <span class="built_in">exit</span></span></span><br><span class="line">vacuum          = true</span><br></pre></td></tr></table></figure>
+
+<p>现在，只要执行以下命令，就能够拉起django application：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --ini mysite_uwsgi.ini # the --ini option is used to specify a file</span><br></pre></td></tr></table></figure>
+
+<h3 id="Make-uWSGI-startup-when-the-system-boots"><a href="#Make-uWSGI-startup-when-the-system-boots" class="headerlink" title="Make uWSGI startup when the system boots"></a>Make uWSGI startup when the system boots</h3><p>编辑文件<code>/etc/rc.local</code>, 添加下面内容到这行代码之前<code>exit 0</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/uwsgi --socket /path/to/mysite.sock --module /path/to/mysite.wsgi --chmod-socket=666</span><br></pre></td></tr></table></figure>
+
+<h3 id="uWSGI的更多配置"><a href="#uWSGI的更多配置" class="headerlink" title="uWSGI的更多配置"></a>uWSGI的更多配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">env = DJANGO_SETTINGS_MODULE=mysite.settings # set an environment variable</span><br><span class="line">pidfile = /tmp/project-master.pid # create a pidfile</span><br><span class="line">harakiri = 20 # respawn processes taking more than 20 seconds</span><br><span class="line">limit-as = 128 # limit the project to 128 MB</span><br><span class="line">max-requests = 5000 # respawn processes after serving 5000 requests</span><br><span class="line">daemonize = /var/log/uwsgi/yourproject.log # background the process &amp; log</span><br></pre></td></tr></table></figure>
+
+<pre><code>文／Gevin（简书作者）</code></pre><p>原文链接：<a href="http://www.jianshu.com/p/e6ff4a28ab5a" target="_blank" rel="noopener">http://www.jianshu.com/p/e6ff4a28ab5a</a><br>著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”</p>
+
+          
         
       
     </div>
@@ -564,20 +649,123 @@
       
         
           
-          centos7 python2.7 与python3.6 共存，并处理好pip
-首先在安装之前先确定系统内的python版本和pip
-然后查看/usr/bin目录下的python软连接和pip
-然后删除它们
-这是需要修改yum的python指向
-编辑/usr/bin/yum文件将python指向修改
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/05/centOS7%E5%AE%89%E8%A3%85python3%E4%B8%8Epython2%E5%85%B1%E5%AD%98/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>centos7 python2.7 与python3.6 共存，并处理好pip</p>
+<p>首先在安装之前先确定系统内的python版本和pip</p>
+<p>然后查看/usr/bin目录下的python软连接和pip</p>
+<p>然后删除它们</p>
+<p>这是需要修改yum的python指向</p>
+<p>编辑/usr/bin/yum文件将python指向修改为python2的软连接</p>
+<ol>
+<li><p>下载压缩包<br><a href="https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz" target="_blank" rel="noopener">h</a></p>
+<p>并用xftp上传到服务器，<br>或者使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget &lt;https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz&gt;</span><br></pre></td></tr></table></figure>
+
+<p>下载到服务器</p>
+</li>
+<li><p>安装相关依赖 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make epel-release</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>解压 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf Python-3.6.0.tgz</span><br></pre></td></tr></table></figure>
+
+<p> 解压后进入安装目录</p>
+</li>
+<li><p>编译安装包 注意：prefix参数用于指定将Python安装在新目录，防止覆盖系统默认安装的python </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure –prefix=/usr/local/python3.6 </span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p> 执行安装</p>
+</li>
+<li><p>修改系统默认的Python路径，因为在终端中输入Python命令时默认是指向Python2.7<br>查看得知，还有一个python2的软连接，继续使用即可(在开始之前已经删除了python的软连接)</p>
+</li>
+<li><p>配置pip<br>已经将原来的pip删掉了，发现内部还有pip2可以使用<br>所以这里只需要配置好pip3即可，<br>先查找到</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 find / -name pip3</span><br></pre></td></tr></table></figure>
+
+<p>然后建立软连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/python3.6/bin/pip3 /usr/bin/pip3</span><br></pre></td></tr></table></figure>
+
+<p>验证：输入pip3 –version 看是否指向的是python3.6 </p>
+<p>输入pip2 –version 看是否指向的是python2</p>
+</li>
+<li><p>建立新的软连接指向Python3.6 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/python36/bin/python3.6 /usr/bin/python3</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<p>   建立指向python3的python软连接 </p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/python36/bin/python3.6 /usr/bin/python</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="8">
+<li><p>因为yum是依赖python的，所以这里我们修改了默认的python,就要要修改yum，让其运行指向旧的版本 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/bin/yum</span><br></pre></td></tr></table></figure>
+
+<p>将第一行中的“#!/usr/bin/python”<br>修改为“#!/usr/bin/python2”，保存即可</p>
+<p>将第一行中的“#!/usr/bin/python”<br>修改为“#!/usr/bin/python2”，保存即可</p>
+</li>
+<li><p>验证<br>输入python3 看是否指向的是python3.6<br>输入python2 看是否指向的是python2</p>
+</li>
+<li><p>导出python 依赖文件：pip freeze &gt; requirements.txt</p>
+</li>
+<li><p>升级对应的pip版本 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install –upgrade pip –force-reinstall </span><br><span class="line">python2 -m pip install –upgrade pip –force-reinstal</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>安装虚拟环境virtualenv和virtualenvwrapper</p>
+<ol>
+<li><p>安装virtualenv virtualenvwrapper </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv virtualenvwrapper</span><br></pre></td></tr></table></figure>
+
+<p>如果没有pip 先安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip：yum install -y pip</span><br></pre></td></tr></table></figure>
+
+<p>安装好了之后，查找virtualenv位置：find / -name virtualenv<br>例：返回：/usr/local/python36/bin/virtualenv<br>查找virtualenvwrapper.sh位置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
+
+<p>如果没有pip 先安装pip：yum install -y pip<br>安装好了之后，查找virtualenv位置：find / -name virtualenv<br>例：返回：/usr/local/python36/bin/virtualenv<br>查找virtualenvwrapper.sh位置：find / -name virtualenvwrapper.sh </p>
+<p>例：返回：/usr/local/python36/bin/virtualenvwrapper.sh</p>
+</li>
+<li><p>在/usr/bin中添加环境变量（就是新建了一个软连接）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/python36/bin/virtualenv /usr/bin/virtualenv</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>修改环境变量相关脚本/root/.bashrc<br>添加如下代码 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export WORKON_HOME=/root/.virtualenvs  #创建一个存放虚拟环境的目录</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PROJECT_HOME=/root/workspace </span><br><span class="line">source /usr/local/python36/bin/virtualenvwrapper.sh #virtualenvwrapper.sh的位置</span><br></pre></td></tr></table></figure>
+
+<p>   然后重启：</p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ./.bashrc</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="4">
+<li><p>检验<br>输入：mkvirtualenv 查看出现的信息，如果提示命令不存在，那么就是没有安装成功<br>基本命令： </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv test #创建一个虚拟环境默认指向python3 </span><br><span class="line">workon test #进入test虚拟环境 </span><br><span class="line"></span><br><span class="line">deactivate #退出虚拟环境</span><br></pre></td></tr></table></figure>
+
+<p>关于centos安装mysql数据库的安装和配置</p>
+</li>
+</ol>
+<p><a href="https://www.cnblogs.com/starof/p/4680083.html" target="_blank" rel="noopener">https://www.cnblogs.com/starof/p/4680083.html</a></p>
+
+          
         
       
     </div>
@@ -695,19 +883,15 @@
       
         
           
-          设置用户信息1$ git config --global user.name "ryanlijianchang"*//用户名*
+            <h5 id="设置用户信息"><a href="#设置用户信息" class="headerlink" title="设置用户信息"></a>设置用户信息</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">"ryanlijianchang"</span>*//用户名*</span></span><br></pre></td></tr></table></figure>
 
-1$ git config --global user.email  "liji.anchang@163.com"*//填写自己的邮箱
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email  <span class="string">"liji.anchang@163.com"</span>*//填写自己的邮箱</span></span><br></pre></td></tr></table></figure>
 
-配置SSH密钥1$ssh-key
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/05/git/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<h3 id="配置SSH密钥"><a href="#配置SSH密钥" class="headerlink" title="配置SSH密钥"></a>配置SSH密钥</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span></span></span><br></pre></td></tr></table></figure>
+
+<p>将里面  .ssh下的id_rsa里面的文件复制到GitHub/setting里面。</p>
+<img src="/2019/03/05/git/1.jpg" class="" title="这是一个demo">
+          
         
       
     </div>
@@ -825,18 +1009,27 @@
       
         
           
-          12$ git config --global user.name "Your Name"$ git config --global user.email "email@example.com"
+            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">"Your Name"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email <span class="string">"email@example.com"</span></span></span><br></pre></td></tr></table></figure>
 
-git安装完成会需要设置用户和email地址。
-12$ git initInitialized emp
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/05/git%E7%9A%84%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%88%9B%E5%BB%BA/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<p>git安装完成会需要设置用户和email地址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br><span class="line">Initialized empty Git repository in /Users/michael/learngit/.git/</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>git init</code>命令把这个目录变成Git可以管理的仓库</p>
+<p>添加文件到Git仓库，分两步：</p>
+<ol>
+<li>使用命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意，可反复多次使用，添加多个文件；</p>
+<p>   2 .使用命令<code>git commit -m &lt;message&gt;</code>，完成</p>
+<h4 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h4><p>第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有<code>id_rsa</code>和<code>id_rsa.pub</code>这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span></span><br></pre></td></tr></table></figure>
+
+<p>第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：</p>
+<p>然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴<code>id_rsa.pub</code>文件的内容</p>
+
+          
         
       
     </div>
@@ -954,20 +1147,13 @@ git安装完成会需要设置用户和email地址。
       
         
           
-          创建博客是使用命令创建:
-1hexo new [layout] &lt;title&gt;
+            <p>创建博客是使用命令创建:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
 
-引用图片的第一种方法1&#123;% asset_img 这是一个新的博客的图片.jpg 这是一个新的博客的图片的说明 %&#125;
+<h2 id="引用图片的第一种方法"><a href="#引用图片的第一种方法" class="headerlink" title="引用图片的第一种方法"></a>引用图片的第一种方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img 这是一个新的博客的图片.jpg 这是一个新的博客的图片的说明 %&#125;</span><br></pre></td></tr></table></figure>
 
-
+<img src="/2019/03/05/hexo/demo.jpg" class="" title="这是一张示例图">
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/05/hexo/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
